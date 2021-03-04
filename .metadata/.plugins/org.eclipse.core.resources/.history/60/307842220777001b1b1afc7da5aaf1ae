@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html>
+<body>
+	
+	<form action="/gerenciador/postServlet"> 
+	
+		Nome: <input type="text" name="usuario" />
+	
+	</form>
+
+</body>
+</html>

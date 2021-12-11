@@ -1,12 +1,7 @@
 package br.com.sergio.jpa.modelo;
 
+import javax.persistence.*;
 import java.math.BigDecimal;
-
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
 
 // Mapeamento da entidade Produto
 
@@ -23,43 +18,57 @@ public class Produto {
 //  A tag Id tag indica para o JPA qual coluna é a primary key no banco de dados
 //  A tag GeneratedValue indica para o JPA que a primary key é gerada automaticamente pelo
 //	banco de dados. No geral, se usa a strategy INDENTITY. Desta forma, podemos passar um id null quando estivermos inserindo registros na tabela
-	
-	@Id 
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
-	private String nome;
-	private String descricao;
-	private BigDecimal preco;
 
-	public int getId() {
-		return id;
-	}
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
+    private String nome;
+    private String descricao;
+    private BigDecimal preco;
+    @ManyToOne
+    private Categoria categoria;
 
-	public void setId(int id) {
-		this.id = id;
-	}
+//    Em nossas entidades, colocamos o construtor padrao para que seja possivel utilizar o metodo merge do Entity Manager,
+//    para quando quisermos voltar uma entidade do estado detached para managed
+    public Produto() {
+    }
 
-	public String getNome() {
-		return nome;
-	}
+    public Produto(String nome, String descricao, BigDecimal preco, Categoria categoria) {
+        this.nome = nome;
+        this.descricao = descricao;
+        this.preco = preco;
+        this.categoria = categoria;
+    }
 
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
+    public long getId() {
+        return id;
+    }
 
-	public String getDescricao() {
-		return descricao;
-	}
+    public void setId(int id) {
+        this.id = id;
+    }
 
-	public void setDescricao(String descricao) {
-		this.descricao = descricao;
-	}
-	
-	public BigDecimal getPreco() {
-		return preco;
-	}
+    public String getNome() {
+        return nome;
+    }
 
-	public void setPreco(BigDecimal preco) {
-		this.preco = preco;
-	}
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public String getDescricao() {
+        return descricao;
+    }
+
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
+    }
+
+    public BigDecimal getPreco() {
+        return preco;
+    }
+
+    public void setPreco(BigDecimal preco) {
+        this.preco = preco;
+    }
 }
